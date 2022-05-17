@@ -13,19 +13,19 @@ def cond_probs_product(table, row, target, target_value):
  return cond_product
  
 def prior_prob(table, column, value):
-  t_list = up_get_column(table, column)
-  p_a = sum([1 if v==value else 0 for v in t_list])/len(t_list)
-  return(p_a)
+ t_list = up_get_column(table, column)
+ p_a = sum([1 if v==value else 0 for v in t_list])/len(t_list)
+ return(p_a)
   
   
 def naive_bayes(table, row, target):
-  targetv_0 = 0
-  partial_numerator0 = cond_probs_product(table, row, target, targetv_0)
-  p_a0 = prior_prob(table, target, targetv_0)
-  full_numerator0 = p_a0 * partial_numerator0
-  targetv_1 = 1
-  partial_numerator1 = cond_probs_product(table, row, target, targetv_1)
-  p_a1 = prior_prob(table, target, targetv_1)
-  full_numerator1 = p_a1 * partial_numerator1
+ targetv_0 = 0
+ partial_numerator0 = cond_probs_product(table, row, target, targetv_0)
+ p_a0 = prior_prob(table, target, targetv_0)
+ full_numerator0 = p_a0 * partial_numerator0
+ targetv_1 = 1
+ partial_numerator1 = cond_probs_product(table, row, target, targetv_1)
+ p_a1 = prior_prob(table, target, targetv_1)
+ full_numerator1 = p_a1 * partial_numerator1
 
-  return [full_numerator0, full_numerator1]
+ return [full_numerator0, full_numerator1]
