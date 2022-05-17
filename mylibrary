@@ -4,6 +4,20 @@ def cond_prob(table, evidence, evidence_value, target, target_value):
  p_b_a = sum([1 if v==evidence_value else 0 for v in e_list])/len(e_list)
  return p_b_a + .01
 
+def cond_probs_product(table, row, target, target_value):
+ table_columns = up_list_column_names(table)
+ sliced_tc = table_columns[:-1]
+ sliced_zip = up_zip_lists(sliced_tc, row)
+ condproblist = [cond_prob(table, sliced_tc, evidence_value, target, target_value) for sliced_tc, evidence_value in sliced_zip] 
+ cond_product = up_product(condproblist)
+ return cond_product
+ 
+def prior_prob(table, column, value):
+  t_list = up_get_column(table, column)
+  p_a = sum([1 if v==value else 0 for v in t_list])/len(t_list)
+  return(p_a)
+  
+  
 def naive_bayes(table, row, target):
   targetv_0 = 0
   partial_numerator0 = cond_probs_product(table, row, target, targetv_0)
