@@ -3,3 +3,15 @@ def cond_prob(table, evidence, evidence_value, target, target_value):
  e_list = up_get_column(t_subset, evidence)
  p_b_a = sum([1 if v==evidence_value else 0 for v in e_list])/len(e_list)
  return p_b_a + .01
+
+def naive_bayes(table, row, target):
+  targetv_0 = 0
+  partial_numerator0 = cond_probs_product(table, row, target, targetv_0)
+  p_a0 = prior_prob(table, target, targetv_0)
+  full_numerator0 = p_a0 * partial_numerator0
+  targetv_1 = 1
+  partial_numerator1 = cond_probs_product(table, row, target, targetv_1)
+  p_a1 = prior_prob(table, target, targetv_1)
+  full_numerator1 = p_a1 * partial_numerator1
+
+  return [full_numerator0, full_numerator1]
